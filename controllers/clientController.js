@@ -24,9 +24,5 @@ const clientController = {
         const [appointments] = await appointment.getAppointmentByClientId(clientId);
         res.status(200).json(appointments);
     }
-
-
-
-
 }
 module.exports = clientController
