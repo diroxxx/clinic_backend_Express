@@ -1,5 +1,5 @@
 const animal = require("../models/Animal");
-const service = require("../models/Service");
+const service = require("../models/Appointment");
 
 
 const guestController = {
