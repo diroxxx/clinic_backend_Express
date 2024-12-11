@@ -1,5 +1,6 @@
 const appointment = require('../models/Appointment')
 const animal = require('../models/Animal')
+const client = require('../models/Client')
 
 
 const clientController = {
@@ -23,6 +24,17 @@ const clientController = {
         const { clientId } = req.params;
         const [appointments] = await appointment.getAppointmentByClientId(clientId);
         res.status(200).json(appointments);
+    },
+
+    addAnimalByClientId: async (req, res) => {
+        const {clientId, name, typeId} = req.body;
+        const addedAnimal = await animal.addAnimal(clientId, name, typeId);
+
+        if (addedAnimal) {
+            res.status(201).json({message : " animal added succesfully"});
+        } else {
+            res.status(400).json({message : " animal not added"});
+        }
     }
 }
 module.exports = clientController

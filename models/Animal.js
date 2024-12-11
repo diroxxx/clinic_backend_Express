@@ -26,9 +26,11 @@ const Animal = {
     getAnimalByClientId: async (clientId) => {
         const [rows] = await db.query('select * from animal join client on animal.client_id = client.id where client_id = ?', [clientId]);
         return rows
+    },
+
+    addAnimal: async (clientId, name, typeId) => {
+        const [rows] = await db.query('insert into animal (name, animal_type_id, client_id) values(?,?,?)', [name, typeId, clientId])
+        return rows;
     }
-
-
-
 }
 module.exports = Animal;

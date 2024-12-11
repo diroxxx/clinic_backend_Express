@@ -16,6 +16,7 @@ router.post('/api/reservation', clientController.addReservation);
 router.get('/api/vets', vetController.getAllVets);
 router.get('/api/animals/:clientId', clientController.getAnimals);
 router.get('/api/appointments/:clientId', clientController.getAppointments);
+router.post('/api/clients/animals/add', clientController.addAnimalByClientId);
 
 
 module.exports = router;
