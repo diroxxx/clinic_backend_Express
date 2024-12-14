@@ -1,5 +1,6 @@
 const animal = require("../models/Animal");
 const service = require("../models/Appointment");
+const client = require("../models/Client");
 
 
 const guestController = {
@@ -30,7 +31,18 @@ const guestController = {
     getServicesInfo: async (req, res) => {
         const types = await service.getTypesOfServices();
         res.status(200).json(types);
+    },
+
+    getArticles: async (req, res) => {
+        const articles = await  client.getArticles();
+        if (articles) {
+            res.status(200).json(articles);
+        } else {
+            res.status(404).json({message: 'No articles found.'});
+        }
     }
+
+
 
 
 

@@ -31,7 +31,7 @@ const clientController = {
         const addedAnimal = await animal.addAnimal(clientId, name, typeId);
 
         if (addedAnimal) {
-            res.status(201).json({message : " animal added succesfully"});
+            res.status(201).json({message : " animal added successfully"});
         } else {
             res.status(400).json({message : " animal not added"});
         }
