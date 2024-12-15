@@ -18,12 +18,15 @@ const loginController = {
             if (isVetExist){
                 loggedUser.id = isVetExist.id;
                 loggedUser.userVet = true;
+            } else {
+             return res.status(400).json({ message: "Vet doesn't exist with given email and password" });
             }
         } else {
             const isClientExist = await client.doesClientExist(email, password);
             if (isClientExist){
                 loggedUser.id = isClientExist.id;
-
+            } else {
+               return  res.status(400).json({ message: "Client doesn't exist with given email and password" });
             }
         }
         res.status(200).json(loggedUser)

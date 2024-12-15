@@ -34,8 +34,9 @@ const guestController = {
     },
 
     getArticles: async (req, res) => {
+        // const articles = await  client.getArticles();
         const articles = await  client.getArticles();
-        if (articles) {
+        if (articles.length > 0) {
             res.status(200).json(articles);
         } else {
             res.status(404).json({message: 'No articles found.'});

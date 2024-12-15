@@ -3,8 +3,9 @@ const db = require('../MyDatabase')
 const Client = {
 
     doesClientExist: async (email, password) => {
-         const [row] = await db.query('select * from client join user on client.id = user.id where user.email = ? and user.password = ? ', [email, password]);
-        return row[0];
+         const [rows] = await db.query('select * from user where user.email = ? and user.password = ?  and  id in (select user_id from client)', [email, password]);
+        return rows.length > 0 ? rows[0] : null;
+
     },
     getArticles: async () => {
         const [rows] = await
@@ -13,6 +14,11 @@ const Client = {
         return rows;
     },
 
+    getArt: async () => {
+        const [rows] = await
+            db.query('select * from article');
+        return rows;
+    },
 
     doesClientExistByEmail: async (email) => {
         const [rows] = await db.query("select * from client  email = ?", [email]);

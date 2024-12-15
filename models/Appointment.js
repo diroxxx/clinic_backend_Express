@@ -14,7 +14,7 @@ const Appointment = {
 
     getAppointmentByClientId: async (clientId) => {
         const [rows] = await db.query(
-            'SELECT appointment.id,animal.name as animalName, service.name, appointment.ap_date as date, appointment.status, CONCAT(user.first_name, " ", user.last_name) AS vetName, service.price, service.name ' +
+            'SELECT appointment.id,animal.name as animalName, service.name, appointment.ap_date as date, appointment.status, CONCAT(user.first_name, " ", user.last_name) AS vetName, service.price ' +
             'FROM appointment ' +
             'JOIN client ON client.id = appointment.client_id ' +
             'JOIN vet ON vet.id = appointment.vet_id ' +
@@ -24,6 +24,8 @@ const Appointment = {
             'WHERE client.id = ?',
             [clientId]
         );
+        // console.log("Rows returned:", rows);
+
         return rows;
     }
 

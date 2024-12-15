@@ -8,6 +8,10 @@ const Guest = {
         const [rows] = await db.query("select * from user where  email = ?", [email]);
         return rows;
     },
+    doesUserExistLogin: async (email, password) => {
+        const [rows] = await db.query("select * from user where  email = ? and password", [email]);
+        return rows;
+    },
 
     addUser: async ( firstName, lastName , email , phoneNumber , password, role ) => {
             const [result] =

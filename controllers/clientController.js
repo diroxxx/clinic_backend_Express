@@ -22,7 +22,8 @@ const clientController = {
     },
     getAppointments: async (req, res) => {
         const { clientId } = req.params;
-        const [appointments] = await appointment.getAppointmentByClientId(clientId);
+        const appointments = await appointment.getAppointmentByClientId(clientId);
+        console.log(appointments);
         res.status(200).json(appointments);
     },
 

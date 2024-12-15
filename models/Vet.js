@@ -3,8 +3,9 @@ const db = require('../MyDatabase')
 const Vet = {
 
     doesVetExist: async (email, password) => {
-        const [row] = await db.query('select * from vet join user on vet.id = user.id where user.email = ? and user.password = ? ', [email, password]);
-        return row[0];
+        const [rows] = await db.query('select * from user  where user.email = ? and user.password = ?  and  id in (select user_id from vet) ', [email, password]);
+        return rows.length > 0 ? rows[0] : null;
+
     },
 
     getVets: async () => {
