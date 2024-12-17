@@ -4,6 +4,7 @@ const appointment = require("../models/Appointment")
 const vetController = {
     getAllVets: async (req, res) => {
         const vets = await vet.getVets();
+        console.log(vets)
         res.status(200).json(vets);
     },
 

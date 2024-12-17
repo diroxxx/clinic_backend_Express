@@ -13,7 +13,7 @@ const Vet = {
     },
 
     getVets: async () => {
-        const [rows] = await db.query("select *, user.first_name , user.last_name  from vet join user on vet.id = user.id ")
+        const [rows] = await db.query("select vet.id, user.first_name , user.last_name  from vet join user on vet.user_id = user.id ")
         return rows;
     }
 }

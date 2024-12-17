@@ -8,7 +8,7 @@ const clientController = {
     addReservation: async (req, res) => {
         const {vetId, clientId, serviceId, animalId, appointmentDate, description, status} = req.body;
          const isAppAdded = await appointment.addAppointment(vetId, clientId, serviceId, animalId, appointmentDate, description, status)
-
+        // console.log(vetId)
         if (isAppAdded) {
             res.status(201).json({message: 'Appointment added successfully.'})
         } else {
@@ -23,7 +23,7 @@ const clientController = {
     getAppointments: async (req, res) => {
         const { clientId } = req.params;
         const appointments = await appointment.getAppointmentByClientId(clientId);
-        console.log(appointments);
+        // console.log(appointments);
         res.status(200).json(appointments);
     },
 
