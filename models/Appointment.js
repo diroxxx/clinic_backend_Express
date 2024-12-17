@@ -25,11 +25,22 @@ const Appointment = {
             [clientId]
         );
         // console.log("Rows returned:", rows);
-
+        return rows;
+    },
+    getAppointmentByVetId: async (vetId) => {
+        const [rows] = await db.query(
+            'SELECT appointment.id,animal.name as animalName, service.name, appointment.ap_date as date, appointment.status, CONCAT(user.first_name, " ", user.last_name) AS clientName, service.price ' +
+            'FROM appointment ' +
+            'JOIN client ON client.id = appointment.client_id ' +
+            'JOIN vet ON vet.id = appointment.vet_id ' +
+            'JOIN user ON user.id = client.id ' +
+            'JOIN service ON service.id = appointment.service_id ' +
+            'JOIN animal ON animal.id = appointment.animal_id ' +
+            'WHERE vet.id = ?',
+            [vetId]
+        );
         return rows;
     }
-
-
 
 
 
