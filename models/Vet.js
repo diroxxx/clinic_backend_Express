@@ -15,6 +15,12 @@ const Vet = {
     getVets: async () => {
         const [rows] = await db.query("select vet.id, user.first_name , user.last_name  from vet join user on vet.user_id = user.id ")
         return rows;
+    },
+
+    getVetInfo: async (id) => {
+
+        const [rows] = await db.query('select user.* from user join vet on user.id = vet.user_id where vet.id = ?', [id]);
+        return rows[0];
     }
 }
 module.exports = Vet

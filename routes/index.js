@@ -20,6 +20,7 @@ router.post('/api/clients/animals/add', clientController.addAnimalByClientId);
 router.get('/api/articles', guestController.getArticles);
 router.post('/api/register', loginController.register);
 router.get('/api/vets/:id/appointments', vetController.getVetAppointments)
+router.get('/api/users/:id/info/:userVet', guestController.getUserInfo)
 
 
 module.exports = router;

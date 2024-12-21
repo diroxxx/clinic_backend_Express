@@ -1,32 +1,14 @@
 const animal = require("../models/Animal");
 const service = require("../models/Appointment");
 const client = require("../models/Client");
+const vet = require("../models/Vet");
 
 
 const guestController = {
 
     getAnimalTypes: async (req, res) => {
-
         const animalTypes = await animal.getAnimalTypes();
-
-        // if (animalTypes.length > 0) {
-        //     res.status(200).json(animalTypes);
-        // } else {
-        //     res.status(404).json({"message": "Not Found"});
-        // }
         res.status(200).json(animalTypes);
-
-
-        // try {
-        //     const animalTypes = await animal.getAnimalTypes();
-        //     if (animalTypes.length > 0) {
-        //         res.status(200).json(animalTypes);
-        //     } else {
-        //         res.status(404).json({ message: "No animal types found" });
-        //     }
-        // } catch (error) {
-        //     res.status(500).json({ message: "Internal Server Error", error });
-        // }
     },
     getServicesInfo: async (req, res) => {
         const types = await service.getTypesOfServices();
@@ -41,6 +23,21 @@ const guestController = {
         } else {
             res.status(404).json({message: 'No articles found.'});
         }
+    },
+
+    getUserInfo: async (req, res) => {
+        const { id, userVet } = req.params;
+        console.log(id, userVet);
+        if (userVet === 'false'){
+            const clientInfo = await client.getUserInfo(id);
+            console.log("fsdfsdfsfs");
+           return  res.status(200).json(clientInfo);
+        } else {
+            console.log("aaaaaaaaaaaaaaaaaaaa");
+            const vetInfo = await vet.getVetInfo(id);
+          return   res.status(200).json(vetInfo);
+        }
+
     }
 
 

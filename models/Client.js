@@ -10,7 +10,7 @@ const Client = {
     getArticles: async () => {
         const [rows] = await
             db.query('select article.id, title, content, article.date AS publicationDate, CONCAT(user.first_name, " ", user.last_name) AS author  from article join vet on vet_id = vet.id ' +
-                'join user on user.id = vet.id');
+                'join user on user.id = vet.user_id');
         return rows;
     },
 
@@ -23,6 +23,10 @@ const Client = {
     doesClientExistByEmail: async (email) => {
         const [rows] = await db.query("select * from client  email = ?", [email]);
         return rows;
+    },
+    getUserInfo: async (id) => {
+        const [rows] = await db.query('select user.* from user join client on user.id = client.user_id where client.id = ?', [id]);
+        return rows[0];
     }
 
 }
