@@ -30,10 +30,10 @@ const guestController = {
         console.log(id, userVet);
         if (userVet === 'false'){
             const clientInfo = await client.getUserInfo(id);
-            console.log("fsdfsdfsfs");
+            // console.log("fsdfsdfsfs");
            return  res.status(200).json(clientInfo);
         } else {
-            console.log("aaaaaaaaaaaaaaaaaaaa");
+            // console.log("aaaaaaaaaaaaaaaaaaaa");
             const vetInfo = await vet.getVetInfo(id);
           return   res.status(200).json(vetInfo);
         }
