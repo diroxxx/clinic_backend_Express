@@ -21,6 +21,8 @@ const Vet = {
 
         const [rows] = await db.query('select user.* from user join vet on user.id = vet.user_id where vet.id = ?', [id]);
         return rows[0];
-    }
+    },
+
+
 }
 module.exports = Vet
