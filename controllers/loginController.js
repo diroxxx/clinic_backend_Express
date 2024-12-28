@@ -1,6 +1,6 @@
 const vet = require('../models/Vet')
 const client = require('../models/Client')
-const guest = require('../models/Guest')
+const guest = require('../models/User')
 
 const loginController = {
 
