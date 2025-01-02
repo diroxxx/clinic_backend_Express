@@ -21,7 +21,10 @@ router.get('/api/articles', userController.getArticles);
 router.post('/api/register', loginController.register);
 router.get('/api/vets/:id/appointments', vetController.getVetAppointments)
 router.get('/api/users/:id/info/:userVet', userController.getUserInfo)
-router.post('/api/users/changeInfo', userController.changeInfo)
+router.post('/api/users/changeInfo', userController.changeInfo);
+router.put('/api/appointment/:id/:status', vetController.updateApp);
+router.put('/api/appointment/changeDate/:id/:newDate', vetController.changeDateApp);
+
 
 
 module.exports = router;

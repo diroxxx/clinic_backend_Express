@@ -40,6 +40,14 @@ const Appointment = {
             [vetId]
         );
         return rows;
+    },
+
+    updateAppointmentStatusById: async(id, status) =>{
+        const[rows] = await db.query('update appointment set status = ? where id = ?', [status, id]);
+        return rows
+    },
+    changeDate: async (id, newDate) =>{
+        return db.query('update appointment set ap_date = ? where id = ?', [newDate, id]);
     }
 
 
