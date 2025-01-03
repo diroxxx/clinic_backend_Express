@@ -1,5 +1,6 @@
 const vet = require("../models/Vet")
 const appointment = require("../models/Appointment")
+const e = require("express");
 
 const vetController = {
     getAllVets: async (req, res) => {
@@ -36,6 +37,23 @@ const vetController = {
            return  res.status(200).json({message : " changed date app successfully"});
         }
         return res.status(200).json({message : `Changed date app unsuccessfully.`});
+    },
+
+    getArticlesByVetId: async (req, res) => {
+        const { id } = req.params;
+        console.log(id)
+
+        if (vet.getVetInfo(id).length <= 0){
+            return res.status(200).json({message : `Vet with given id doesn't exist`});
+        }
+
+        const articles = await vet.getVetArticles(id);
+        console.log(articles)
+        if (articles.length > 0){
+            return res.status(200).json(articles);
+        } else {
+            return res.status(404).json({message: 'No articles found.'});
+        }
     }
 
 }
