@@ -21,7 +21,7 @@ const Appointment = {
             'JOIN user ON vet.id = user.id ' +
             'JOIN service ON service.id = appointment.service_id ' +
             'JOIN animal ON animal.id = appointment.animal_id ' +
-            'WHERE client.id = ?',
+            'WHERE client.id = ? ORDER BY appointment.ap_date desc',
             [clientId]
         );
         // console.log("Rows returned:", rows);

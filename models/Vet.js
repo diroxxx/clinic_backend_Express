@@ -23,7 +23,20 @@ const Vet = {
         return rows[0];
     },
     getVetArticles: async (id) => {
-        const [rows] = await db.query('select * from article join vet on article.vet_id = vet.id  where vet.id = ? ', [id]);
+        const [rows] = await db.query('select article.* from article join vet on article.vet_id = vet.id  where vet.id = ? ', [id]);
+        return rows;
+    },
+
+    changeArticle: async (id, title, content) => {
+        const [rows] = await db.query("update article set title=?, content=? where id=? ", [title,content,id]);
+        return rows[0];
+    },
+    addArticle: async (authorId, title, content, date) => {
+        const [rows] = await db.query("insert into article(title, content, date, vet_id) values (?,?,?,?)", [title, content, date, authorId]);
+        return rows
+    },
+    deleteArticle: async (id) => {
+        const [rows] = await db.query("delete from article where id=?", [id]);
         return rows;
     }
 

@@ -54,7 +54,41 @@ const vetController = {
         } else {
             return res.status(404).json({message: 'No articles found.'});
         }
+    },
+
+    changeArticle: async (req, res) => {
+        const { id } = req.params;
+        const {title, content} = req.params;
+
+        const changedArt = await vet.changeArticle(id, title, content);
+        if (changedArt){
+            return res.status(200).json({message : `Article has been changed successfully.`});
+        }
+        return res.status(400).json({message : `Article hasn't been changed successfully.`});
+    },
+
+    addArticle: async (req, res) => {
+        const { title, content, authorId, date } = req.body;
+        // console.log(date, title, content, authorId);
+        const addedArticle = await vet.addArticle(authorId,title, content,date);
+        // console.log(addedArticle);
+        if (addedArticle){
+            return res.status(201).json({message : `Article has been added successfully.`});
+        }
+        return res.status(400).json({message: "Article hasn't been added successfully"})
+    },
+
+    deleteArticle: async (req, res) => {
+        const { articleId } = req.params;
+        console.log(articleId)
+        const deletedArticle = await vet.deleteArticle(articleId);
+        if (deletedArticle){
+            return res.status(200).json({message: "Article has been deleted"})
+        }
+        return res.status(400).json({message: "Article hasn't been deleted"})
+
     }
+
 
 }
 module.exports = vetController;

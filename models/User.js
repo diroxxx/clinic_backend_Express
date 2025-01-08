@@ -38,11 +38,6 @@ const User = {
         console.log(userId)
             const [rows] = await db.query("update user u set u.first_name= ? , u.last_name = ?, u.email=?, u.phone_number=?, u.password=? where u.id = ? ",[userToChange.first_name, userToChange.last_name,userToChange.email, userToChange.phone_number, userToChange.password, userToChange.id]);
             return rows.affectedRows;
-        // } else if (isUserVet === 'client') {
-        //     const [rows] = await db.query("update user  JOIN client ON client.user_id = user.id set first_name= ? , last_name = ?, email=?, phone_number=?, password=? where client.id = ? ",[userToChange.firstName, userToChange.lastName,userToChange.email, userToChange.phoneNumber, userToChange.password, userId]);
-        //     return rows.affectedRows;
-        // }
-
     }
 
 
