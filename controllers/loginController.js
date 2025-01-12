@@ -29,7 +29,7 @@ const loginController = {
                return  res.status(400).json({ message: "Client doesn't exist with given email and password" });
             }
         }
-        res.status(200).json(loggedUser)
+      return   res.status(200).json(loggedUser)
     },
 
     register: async (req, res) => {
@@ -37,13 +37,13 @@ const loginController = {
         const doesUserExist = await guest.doesUserExist(email);
 
         if (doesUserExist.length > 0){
-            res.status(400).json({ email: "User already exists with given email" });
+          return   res.status(400).json({ message: "User already exists with given email" });
         } else {
             const addedUser = await guest.addUser(firstName, lastName , email , phoneNumber , password, role );
             if (addedUser.length === 0){
                 return res.status(400).json({ message: "Failed to add user" });
             }
-            res.status(201).json(doesUserExist);
+          return   res.status(201).json(doesUserExist);
         }
     }
 }

@@ -5,15 +5,19 @@ const e = require("express");
 const vetController = {
     getAllVets: async (req, res) => {
         const vets = await vet.getVets();
-        // console.log(vets)
-        res.status(200).json(vets);
+        if (!vets) {
+          return res.status(404).json({message:"No vets found"});
+        }
+       return res.status(200).json(vets);
     },
 
     getVetAppointments: async (req, res) => {
         const {id} = req.params;
         const appointments = await  appointment.getAppointmentByVetId(id);
-        res.status(200).json(appointments);
-
+        if (appointments) {
+           return  res.status(200).json(appointments);
+        }
+       return  res.status(400).json({message:"No appointments found"});
     },
 
     updateApp: async (req, res) => {
@@ -36,7 +40,7 @@ const vetController = {
         if (changedDateApp){
            return  res.status(200).json({message : " changed date app successfully"});
         }
-        return res.status(200).json({message : `Changed date app unsuccessfully.`});
+        return res.status(400).json({message : `Changed date app unsuccessfully.`});
     },
 
     getArticlesByVetId: async (req, res) => {
@@ -44,7 +48,7 @@ const vetController = {
         console.log(id)
 
         if (vet.getVetInfo(id).length <= 0){
-            return res.status(200).json({message : `Vet with given id doesn't exist`});
+            return res.status(404).json({message : `Vet with given id doesn't exist`});
         }
 
         const articles = await vet.getVetArticles(id);
@@ -58,9 +62,11 @@ const vetController = {
 
     changeArticle: async (req, res) => {
         const { id } = req.params;
-        const {title, content} = req.params;
+        const {title, content} = req.body;
+        console.log(id, title, content)
 
         const changedArt = await vet.changeArticle(id, title, content);
+        console.log(changedArt);
         if (changedArt){
             return res.status(200).json({message : `Article has been changed successfully.`});
         }
@@ -86,8 +92,19 @@ const vetController = {
             return res.status(200).json({message: "Article has been deleted"})
         }
         return res.status(400).json({message: "Article hasn't been deleted"})
+    },
 
+    updateAppStatus: async (req, res) => {
+        const {date} = req.params;
+        console.log(date)
+        const updatedStatus = await appointment.updateStatus(date);
+
+        if (updatedStatus){
+            return res.status(200).json({message : `Updated status successfully.`});
+        }
+        return res.status(400).json({message: 'Unsuccessful update'})
     }
+
 
 
 }

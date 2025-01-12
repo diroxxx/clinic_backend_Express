@@ -29,7 +29,7 @@ const Vet = {
 
     changeArticle: async (id, title, content) => {
         const [rows] = await db.query("update article set title=?, content=? where id=? ", [title,content,id]);
-        return rows[0];
+        return rows;
     },
     addArticle: async (authorId, title, content, date) => {
         const [rows] = await db.query("insert into article(title, content, date, vet_id) values (?,?,?,?)", [title, content, date, authorId]);

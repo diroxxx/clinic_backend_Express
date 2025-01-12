@@ -29,13 +29,14 @@ const Appointment = {
     },
     getAppointmentByVetId: async (vetId) => {
         const [rows] = await db.query(
-            'SELECT appointment.id,animal.name as animalName, service.name, appointment.ap_date as date, appointment.status, CONCAT(user.first_name, " ", user.last_name) AS clientName, service.price ' +
+            'SELECT appointment.id,animal.name as animalName, description, service.name, appointment.ap_date as date, appointment.status, CONCAT(user.first_name, " ", user.last_name) AS clientName, service.price, animal_type.type ' +
             'FROM appointment ' +
             'JOIN client ON client.id = appointment.client_id ' +
             'JOIN vet ON vet.id = appointment.vet_id ' +
             'JOIN user ON user.id = client.id ' +
             'JOIN service ON service.id = appointment.service_id ' +
             'JOIN animal ON animal.id = appointment.animal_id ' +
+            'JOIN animal_type on animal.animal_type_id = animal_type.id ' +
             'WHERE vet.id = ?',
             [vetId]
         );
@@ -48,11 +49,12 @@ const Appointment = {
     },
     changeDate: async (id, newDate) =>{
         return db.query('update appointment set ap_date = ? where id = ?', [newDate, id]);
+    },
+
+    updateStatus: async (date) => {
+        const [rows] = await db.query("update appointment set status = 'completed' where ap_date < ? and status = 'scheduled'", [date]);
+        return rows
     }
-
-
-
-
 
 
 }

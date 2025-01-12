@@ -28,7 +28,7 @@ router.get('/api/vet/:id/articles', vetController.getArticlesByVetId);
 router.put('/api/vet/article/:id', vetController.changeArticle);
 router.post('/api/vet/article', vetController.addArticle);
 router.delete('/api/vet/article/:articleId', vetController.deleteArticle);
-
+router.put('/api/appointments/status/:date', vetController.updateAppStatus);
 
 
 module.exports = router;
